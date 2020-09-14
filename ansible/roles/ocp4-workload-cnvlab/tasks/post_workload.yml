@@ -22,7 +22,7 @@
     msg: "CNV Lab Workbook: https://{{ getroute.resources[0].spec.host }}"
 
 - name: Get kubeadmin password
-  command: cat ~/cluster-{{ guid }}/auth/kubeadmin-password
+  command: cat /root/ocp4upi/artifacts/install/auth/kubeadmin-password
   register: kubeadmin_password
 
 - name: Report KubeAdmin Login Details

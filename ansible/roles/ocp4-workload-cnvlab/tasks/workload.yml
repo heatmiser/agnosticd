@@ -17,9 +17,9 @@
 
 - name: Clone OpenShift virt repositories
   git:
-    repo: "https://github.com/RHFieldProductManagement/openshift-virt-labs.git"
+    repo: "https://github.com/heatmiser/openshift-virt-labs.git"
     dest: "~/openshift-virt-labs"
-    version: "rhpds"
+    version: "packet"
 
 - name: Deploy Workbook Instance for CNV Labs
   block:

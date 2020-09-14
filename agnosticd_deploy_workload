@@ -1,0 +1,40 @@
+#!/bin/bash
+# Stick this script into the AgnosticD root directory.
+# a TARGET_HOST (BASTION variable) is specified on the "ansible-playbook" line, no inventory file
+
+# FQDN of load-balancer node deployed in OCP cluster on Packet Cloud
+BASTION=lb-0.lab01.domain.net
+
+OCP_USERNAME="kubeadmin"
+WORKLOAD="ocp4-workload-cnvlab"
+
+# match the cluster domain used when installing OCP to Packet Cloud
+SUBDOMAIN_BASE="lab01.domain.net"
+
+CLOUD="packet"
+ACTION=create
+#ACTION=remove
+ANSIBLE_USER=root
+
+# private key file used during deploy of OCP cluster on Packet Cloud
+ANSIBLE_USER_KEY_FILE="/path/to/.ssh/id_ecdsa_msavage-redhat.com"
+
+#VERBOSE_MODE="-vvvv"
+VERBOSE_MODE=""
+
+ansible-playbook -i "${BASTION}", ./ansible/configs/ocp-workloads/ocp-workload.yml \
+    -e"ansible_ssh_private_key_file=${ANSIBLE_USER_KEY_FILE}" \
+    -e"ansible_user=${ANSIBLE_USER}" \
+    -e"ocp_username=${OCP_USERNAME}" \
+    -e"ocp_workload=${WORKLOAD}" \
+    -e"subdomain_base=${SUBDOMAIN_BASE}" \
+    -e"cloud_provider=${CLOUD}" \
+    -e"ACTION=${ACTION}" \
+    -e"silent=False" \
+    ${VERBOSE_MODE} \
+    -e"become_override=True"
+    
+# If a workload needs any kind of credentials they can be in a file
+# role secrets that get added like this:    
+#   -e @./role_secret.yaml
+
