@@ -17,7 +17,7 @@ ACTION=create
 ANSIBLE_USER=root
 
 # private key file used during deploy of OCP cluster on Packet Cloud
-ANSIBLE_USER_KEY_FILE="/path/to/.ssh/id_ecdsa_msavage-redhat.com"
+ANSIBLE_USER_KEY_FILE="/path/to/.ssh/id_ecdsa"
 
 #VERBOSE_MODE="-vvvv"
 VERBOSE_MODE=""
